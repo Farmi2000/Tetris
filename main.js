@@ -7,9 +7,9 @@ context.fillStyle = "#808080";
 
 const draw_tiles = function(start_x, start_y, tile_width, tile_height, rows, columns){
     for(let i = 0; i < rows; i++) {
-        const x = tile_width * i + 1 * i + start_x;
+        const x = tile_width * i + 0 * i + start_x;
         for(let j = 0; j < columns; j++) {
-            const y = tile_height * j + 1 * j + start_y;
+            const y = tile_height * j + 0 * j + start_y;
             context.fillRect(x, y, tile_width, tile_height);
         }  
     } 
@@ -27,7 +27,11 @@ const rows = 12;
 const columns = 22;
 const center_position = get_center_position(canvas.width, canvas.height, tile_width, tile_height, rows, columns);
 console.log(center_position);
-draw_tiles(center_position[0], 0, tile_width, tile_height, rows, columns);
+draw_tiles(center_position[0], 0, tile_width, tile_height, 1, columns);
+draw_tiles(center_position[0], 0, tile_width, tile_height, rows, 1);
+draw_tiles(center_position[0] + tile_width * rows - tile_width , 0, tile_width, tile_height, 1, columns);
+draw_tiles(center_position[0], tile_height * columns - tile_height , tile_width, tile_height , rows, 1);
+
 
 
 
