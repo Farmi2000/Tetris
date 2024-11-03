@@ -5,21 +5,33 @@ canvas.height = window.innerHeight;
 const context = canvas.getContext("2d");
 context.fillStyle = "#808080";
 
-console.time();
-const tilewidth = 32
-const tileheight = 32
-const rows = 12
-const columns = 22
-
-for(let i = 0; i < rows; i++) {
-    const x = tilewidth*i+5*i
-    for(let j = 0; j < columns; j++){
-        const y = tileheight*j+5*j
-        context.fillRect(x, y, tilewidth, tileheight);
-    
-    }
-    
+const draw_tiles = function(start_x, start_y, tile_width, tile_height, rows, columns){
+    for(let i = 0; i < rows; i++) {
+        const x = tile_width * i + 1 * i + start_x;
+        for(let j = 0; j < columns; j++) {
+            const y = tile_height * j + 1 * j + start_y;
+            context.fillRect(x, y, tile_width, tile_height);
+        }  
+    } 
 }
-console.timeEnd();
+function get_center_position(screen_width, screen_height, tile_width, tile_height, rows, columns){
+    const width_total = tile_width * rows;
+    const height_total = tile_height * columns;
+    const center_x = screen_width / 2 - width_total / 2; 
+    const center_y = screen_height / 2 - height_total / 2;
+    return [center_x, center_y];
+}
+const tile_width = 32;
+const tile_height = 32;
+const rows = 12;
+const columns = 22;
+const center_position = get_center_position(canvas.width, canvas.height, tile_width, tile_height, rows, columns);
+console.log(center_position);
+draw_tiles(center_position[0], 0, tile_width, tile_height, rows, columns);
 
 
+
+
+
+
+ 
