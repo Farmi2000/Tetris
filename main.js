@@ -98,7 +98,7 @@ function collision() {
 
 function clearRows() {
     for (let y = gridHeight - 1; y >= 0; y--) {
-        if (grid[y].every(cell => !== 0)) {
+        if (grid[y].every(cell => cell !== 0)) {
             grid.splice(y, 1); // Remove the row
             grid.unshift(Array(gridWidth).fill(0)); // Add a new empty row at the top
         }
