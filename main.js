@@ -16,7 +16,7 @@ const draw_tiles = function(start_x, start_y, tile_width, tile_height, rows, col
     } 
 }
 
-export const get_center_position = function(screen_width, screen_height, tile_width, tile_height, rows, columns){
+const get_center_position = function(screen_width, screen_height, tile_width, tile_height, rows, columns){
     const width_total = tile_width * rows;
     const height_total = tile_height * columns;
     const center_x = screen_width / 2 - width_total / 2; 

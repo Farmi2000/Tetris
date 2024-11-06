@@ -1,6 +1,6 @@
 {
     "I": {
-        "id": "I",
+        "id": 1,
         "width": 4,
         "height": 4,
         "rotations": [
@@ -31,7 +31,7 @@
         ]
     },
     "Z": {
-        "id": "Z",
+        "id": 2,
         "width": 3,
         "height": 3,
         "rotations": [
@@ -58,7 +58,7 @@
         ]
     },
     "S": {
-        "id": "S",
+        "id": 3,
         "width": 3,
         "height": 3,
         "rotations": [
@@ -85,7 +85,7 @@
         ]
     },
     "T": {
-        "id": "T",
+        "id": 4,
         "width": 3,
         "height": 3,
         "rotations": [
@@ -112,7 +112,7 @@
         ]
     },
     "O": {
-        "id": "O",
+        "id": 5,
         "width": 2,
         "height": 2,
         "rotations": [
@@ -123,7 +123,7 @@
         ]
     },
     "L": {
-        "id": "L",
+        "id": 6,
         "width": 3,
         "height": 3,
         "rotations": [
@@ -150,7 +150,7 @@
         ]
     },
     "J": {
-        "id": "J",
+        "id": 7,
         "width": 3,
         "height": 3,
         "rotations": [
