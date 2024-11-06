@@ -4,6 +4,16 @@ canvas.width = window.innerWidth;
 canvas.height = window.innerHeight;
 const context = canvas.getContext("2d");
 context.fillStyle = "#808080";
+const tetrominoes = [
+[[1, 1, 1, 1]]  // I shape
+[[1, 1, 0], [0, 1, 1]]     // Z shape
+[[0, 1, 1], [1, 1, 0]],  // S shape
+  [[1, 1, 1], [0, 1, 0]],  // T shape
+  [[1, 1], [1, 1]],        // O shape
+  [[1, 1, 1], [1, 0, 0]],  // L shape
+  [[1, 1, 1], [0, 0, 1]]   // J shape
+];
+
 
 const draw_tiles = function(start_x, start_y, tile_width, tile_height, rows, columns){
     for(let i = 0; i < rows; i++) {
@@ -32,6 +42,33 @@ draw_tiles(center_position[0], 0, tile_width, tile_height, rows, 1);
 draw_tiles(center_position[0] + tile_width * rows - tile_width , 0, tile_width, tile_height, 1, columns);
 draw_tiles(center_position[0], tile_height * columns - tile_height , tile_width, tile_height , rows, 1);
 
+function getRandomTetromino() {
+    const index = Math.floor(Math.random() * tetrominoes.length); 
+    return tetrominoes[index];
+}
+
+let currentPiece = getRandomTetromino();
+let pieceX = 4, pieceY = 0; // Initial position of the piece 
+
+function drawGrid() {
+    context.clearRect(0, 0, canvas.width, canvas.height);
+    drawGrid.forEach((row, y) => {
+        row.foeEach((cell, x) => {
+            if (cell) {
+                context.fillStyle = 'blue';
+                context.fillRect(x, y, 1, 1);
+            }
+        });
+    });
+    currentPiece.forEach((row, y) => {
+        row.foeEach((cell, x) => {
+        if (cell) {
+            context.fillStyle = 'red';
+            context.fillRect(x + pieceX, pieceY, 1, 1);
+            }
+        });
+    });
+}
 
 
 
