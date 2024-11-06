@@ -3,17 +3,66 @@ const canvas = document.createElement("canvas");
 document.body.appendChild(canvas);
 canvas.width = window.innerWidth;
 canvas.height = window.innerHeight;
-const context = canvas.getContext("2d");
-context.fillStyle = "#808080";
 
-const draw_tiles = function(start_x, start_y, tile_width, tile_height, rows, columns, colors, grid){
+const context = canvas.getContext("2d");
+const tile_width = 32;
+const tile_height = 32;
+
+context.imageSmoothingEnabled = false;
+
+const draw_tiles = function(start_x, start_y, rows, columns, color) {
+    context.fillStyle = color;
+
     for(let i = 0; i < rows; i++) {
-        const x = tile_width * i + 0 * i + start_x;
+        const draw_x = tile_width * i + start_x;
+
         for(let j = 0; j < columns; j++) {
-            const y = tile_height * j + 0 * j + start_y;
-            context.fillRect(x, y, tile_width, tile_height);
+            const draw_y = tile_height * j + start_y;
+
+            context.fillRect(draw_x, draw_y, tile_width, tile_height);
         }  
     } 
+}
+
+const draw_grid = function(start_x, start_y, width, height, colors, grid) {
+    for(let i = 0; i < height; i++) {
+        const draw_y = start_y + i * tile_height;
+        const row = i * width;
+
+        for(let j = 0; j < width; j++) {
+            const draw_x = start_x + j * tile_width;
+            const index = row + j;
+            const id = grid[index];
+            const color = colors[id];
+
+            if(color !== undefined) {
+                context.fillStyle = color;
+                context.fillRect(draw_x, draw_y, tile_width, tile_height);
+            } else {
+                context.fillStyle = "white";
+                context.fillRect(draw_x, draw_y, tile_width, tile_height);
+            }
+        }
+    }
+}
+
+const draw_grid_lines = function(start_x, start_y, width, height, color) {
+    const draw_width = tile_width * width;
+    const draw_height = tile_height * height;
+
+    context.fillStyle = color;
+
+    for(let i = 0; i <= height; i++) {
+        const draw_y = start_y + i * tile_height;
+
+        context.fillRect(start_x, draw_y, draw_width, 1);
+    }
+
+    for(let i = 0; i <= width; i++) {
+        const draw_x = start_x + i * tile_width;
+
+        context.fillRect(draw_x, start_y, 1, draw_height);
+    }
 }
 
 const get_center_position = function(screen_width, screen_height, tile_width, tile_height, rows, columns){
@@ -24,18 +73,24 @@ const get_center_position = function(screen_width, screen_height, tile_width, ti
     return [center_x, center_y];
 }
 
-const tile_width = 32;
-const tile_height = 32;
+const outer_color = "#808080";
 const rows = 12;
 const columns = 22;
-const center_position = get_center_position(canvas.width, canvas.height, tile_width, tile_height, rows, columns);
+const [centerX, centerY] = get_center_position(canvas.width, canvas.height, tile_width, tile_height, rows, columns);
 
-console.log(tetrominoes);
-console.log(center_position);
-draw_tiles(center_position[0], 0, tile_width, tile_height, 1, columns);
-draw_tiles(center_position[0], 0, tile_width, tile_height, rows, 1);
-draw_tiles(center_position[0] + tile_width * rows - tile_width , 0, tile_width, tile_height, 1, columns);
-draw_tiles(center_position[0], tile_height * columns - tile_height , tile_width, tile_height , rows, 1);
+draw_tiles(centerX, 0, 1, columns, outer_color);
+draw_tiles(centerX, 0, rows, 1, outer_color);
+draw_tiles(centerX + tile_width * rows - tile_width, 0, 1, columns, outer_color);
+draw_tiles(centerX, tile_height * columns - tile_height, rows, 1, outer_color);
+
+const grid_width = 10; 
+const grid_height = 20;
+const grid = new Uint8Array(grid_width * grid_height);
+const grid_line_color = "pink";
+const colors = ["black", "cyan", "red", "green", "purple", "yellow", "orange", "blue"];
+
+draw_grid(centerX + tile_width, tile_height, grid_width, grid_height, colors, grid);
+draw_grid_lines(centerX + tile_width, tile_height, grid_width, grid_height, grid_line_color);
 
 let last_time_stamp = 0;
 
@@ -45,9 +100,7 @@ const game_loop = function(time_stamp) {
     requestAnimationFrame(game_loop);
 }
 
-const grid_width = 10; 
-const grid_height = 20;
-const grid = new Uint8Array(grid_width * grid_height);
-const colors = ["black", "cyan", "red", "green", "purple", "yellow", "orange", "blue"];
+console.log(tetrominoes);
+
 
 
