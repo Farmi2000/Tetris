@@ -6,7 +6,7 @@ canvas.height = window.innerHeight;
 const context = canvas.getContext("2d");
 context.fillStyle = "#808080";
 
-const draw_tiles = function(start_x, start_y, tile_width, tile_height, rows, columns){
+const draw_tiles = function(start_x, start_y, tile_width, tile_height, rows, columns, colors, grid){
     for(let i = 0; i < rows; i++) {
         const x = tile_width * i + 0 * i + start_x;
         for(let j = 0; j < columns; j++) {
@@ -36,3 +36,18 @@ draw_tiles(center_position[0], 0, tile_width, tile_height, 1, columns);
 draw_tiles(center_position[0], 0, tile_width, tile_height, rows, 1);
 draw_tiles(center_position[0] + tile_width * rows - tile_width , 0, tile_width, tile_height, 1, columns);
 draw_tiles(center_position[0], tile_height * columns - tile_height , tile_width, tile_height , rows, 1);
+
+let last_time_stamp = 0;
+
+const game_loop = function(time_stamp) {
+    const delta_time = time_stamp - last_time_stamp;
+    last_time_stamp = time_stamp;
+    requestAnimationFrame(game_loop);
+}
+
+const grid_width = 10; 
+const grid_height = 20;
+const grid = new Uint8Array(grid_width * grid_height);
+const colors = ["black", "cyan", "red", "green", "purple", "yellow", "orange", "blue"];
+
+
