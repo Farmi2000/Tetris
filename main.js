@@ -77,26 +77,24 @@ const outer_color = "#808080";
 const rows = 12;
 const columns = 22;
 const [centerX, centerY] = get_center_position(canvas.width, canvas.height, tile_width, tile_height, rows, columns);
-
-draw_tiles(centerX, 0, 1, columns, outer_color);
-draw_tiles(centerX, 0, rows, 1, outer_color);
-draw_tiles(centerX + tile_width * rows - tile_width, 0, 1, columns, outer_color);
-draw_tiles(centerX, tile_height * columns - tile_height, rows, 1, outer_color);
-
 const grid_width = 10; 
 const grid_height = 20;
 const grid = new Uint8Array(grid_width * grid_height);
 const grid_line_color = "pink";
 const colors = ["black", "cyan", "red", "green", "purple", "yellow", "orange", "blue"];
-
-draw_grid(centerX + tile_width, tile_height, grid_width, grid_height, colors, grid);
-draw_grid_lines(centerX + tile_width, tile_height, grid_width, grid_height, grid_line_color);
-
+console.log(grid);
 let last_time_stamp = 0;
 
 const game_loop = function(time_stamp) {
     const delta_time = time_stamp - last_time_stamp;
     last_time_stamp = time_stamp;
+    context.clearRect(0, 0, canvas.width, canvas.height);
+    draw_tiles(centerX, 0, 1, columns, outer_color);
+    draw_tiles(centerX, 0, rows, 1, outer_color);
+    draw_tiles(centerX + tile_width * rows - tile_width, 0, 1, columns, outer_color);
+    draw_tiles(centerX, tile_height * columns - tile_height, rows, 1, outer_color);    
+    draw_grid(centerX + tile_width, tile_height, grid_width, grid_height, colors, grid);
+    draw_grid_lines(centerX + tile_width, tile_height, grid_width, grid_height, grid_line_color);
     requestAnimationFrame(game_loop);
 }
 
