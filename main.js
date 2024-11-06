@@ -71,6 +71,55 @@ function drawGrid() {
     });
 }
 
+function moveDown() {
+    pieceY++;
+    if(collision()) {
+        pieceY--; // Revert the position if it collides
+        mergePiece(); // Add piece to the grid
+        resetPiece(); // Spawn a new piece
+    }
+    drawGrid();
+}
+
+function collision() {
+    for (let y = 0; y < currentPiece.length; y++) {
+        for (let x = 0; x < currentPiece[y].length; x++) {
+            if (
+                currentPiece[y][x] &&
+                (grid[y + pieceY] && grid[y + pieceY[x + pieceX]]) !== 0
+            ) {
+                return true;
+            }
+         }
+    }
+    return false;
+
+}
+
+function clearRows() {
+    for (let y = gridHeight - 1; y >= 0; y--) {
+        if (grid[y].every(cell => !== 0)) {
+            grid.splice(y, 1); // Remove the row
+            grid.unshift(Array(gridWidth).fill(0)); // Add a new empty row at the top
+        }
+    }
+}
+
+function gameLoop() {
+    moveDown();
+    clearRows();
+    drawGrid();
+}
+
+setInterval(gameLoop, 500); // Adjust speed as needed
+
+document.addEventListener('keydown', event => {
+    if (event.key === 'ArrowLeft') pieceX--;
+    else if (event.key === 'ArrowRight') pieceX++;
+    else if (event.key === 'ArrowDown') moveDown();
+    else if (event.key === 'ArrowUp') rotatePiece();
+    drawGrid();
+});
 
 
 
