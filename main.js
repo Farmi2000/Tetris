@@ -4,14 +4,15 @@ canvas.width = window.innerWidth;
 canvas.height = window.innerHeight;
 const context = canvas.getContext("2d");
 context.fillStyle = "#808080";
+let grid = Array.from({length: gridHeight }, () => Array(gridWidth).fill(0));
 const tetrominoes = [
-[[1, 1, 1, 1]]  // I shape
-[[1, 1, 0], [0, 1, 1]]     // Z shape
-[[0, 1, 1], [1, 1, 0]],  // S shape
-  [[1, 1, 1], [0, 1, 0]],  // T shape
-  [[1, 1], [1, 1]],        // O shape
-  [[1, 1, 1], [1, 0, 0]],  // L shape
-  [[1, 1, 1], [0, 0, 1]]   // J shape
+    [[1, 1, 1, 1]],  // I shape
+    [[1, 1, 0], [0, 1, 1]],     // Z shape
+    [[0, 1, 1], [1, 1, 0]],  // S shape
+    [[1, 1, 1], [0, 1, 0]],  // T shape
+    [[1, 1], [1, 1]],        // O shape
+    [[1, 1, 1], [1, 0, 0]],  // L shape
+    [[1, 1, 1], [0, 0, 1]]   // J shape
 ];
 
 
@@ -52,8 +53,8 @@ let pieceX = 4, pieceY = 0; // Initial position of the piece
 
 function drawGrid() {
     context.clearRect(0, 0, canvas.width, canvas.height);
-    drawGrid.forEach((row, y) => {
-        row.foeEach((cell, x) => {
+    grid.forEach((row, y) => {
+        row.forEach((cell, x) => {
             if (cell) {
                 context.fillStyle = 'blue';
                 context.fillRect(x, y, 1, 1);
@@ -69,6 +70,7 @@ function drawGrid() {
         });
     });
 }
+
 
 
 
