@@ -85,9 +85,11 @@ const colors = ["black", "cyan", "red", "green", "purple", "yellow", "orange", "
 console.log(grid);
 let last_time_stamp = 0;
 
+
 const game_loop = function(time_stamp) {
     const delta_time = time_stamp - last_time_stamp;
     last_time_stamp = time_stamp;
+    
     context.clearRect(0, 0, canvas.width, canvas.height);
     draw_tiles(centerX, 0, 1, columns, outer_color);
     draw_tiles(centerX, 0, rows, 1, outer_color);
@@ -97,7 +99,7 @@ const game_loop = function(time_stamp) {
     draw_grid_lines(centerX + tile_width, tile_height, grid_width, grid_height, grid_line_color);
     requestAnimationFrame(game_loop);
 }
-
+game_loop(0);
 console.log(tetrominoes);
 
 
